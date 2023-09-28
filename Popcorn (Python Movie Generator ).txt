@@ -1,0 +1,37 @@
+import os
+import random
+
+# Specify the root directory where your movie folders are located
+
+root_directory = '/Your Path To Movie Files Paste Here' 
+
+
+# Function to recursively find all movie files in a directory
+def find_movie_files(directory):
+    movie_files = []
+    for root, _, files in os.walk(directory):
+        for file in files:
+            if file.lower().endswith(('.mp4', '.avi', '.mkv', '.mov', '.wmv', '.flv', '.mpeg', '.mpg')):
+                movie_files.append(os.path.join(root, file))
+    return movie_files
+
+# Main function
+def main():
+    try:
+        if not os.path.exists(root_directory):
+            print(f"Directory not found: {root_directory}")
+            return
+
+        movie_files = find_movie_files(root_directory)
+
+        if not movie_files:
+            print("No movie files found in the specified directories.")
+        else:
+            random_movie = random.choice(movie_files)
+            print("Randomly selected movie:", random_movie)
+
+    except Exception as e:
+        print("An error occurred:", str(e))
+
+if __name__ == "__main__":
+    main()
